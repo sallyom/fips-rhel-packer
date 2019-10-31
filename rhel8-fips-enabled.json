@@ -1,0 +1,26 @@
+{
+  "variables": {
+    "image_family": "rhel8-fips",
+    "source_image_family": "rhel8-fips-source",
+    "project": "openshift-gce-devel",
+    "zone": "us-east1-c"
+  },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "project_id": "{{ user `project` }}",
+      "zone": "{{ user `zone` }}",
+      "source_image_family": "{{ user `source_image_family` }}",
+      "image_family": "{{ user `image_family` }}",
+      "ssh_username": "packer",
+      "min_cpu_platform": "Intel Haswell",
+      "machine_type": "n1-standard-8",
+      "disk_type": "pd-ssd",
+      "disk_size": 256
+    }
+  ],
+  "provisioners": [{
+    "type": "shell",
+      "script": "load-image.sh"
+  }]
+}
